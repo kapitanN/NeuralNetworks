@@ -11,8 +11,8 @@
 <head>
   <meta charset="utf-8">
   <title></title>
-  <meta name="author" content="Antoniuk">
-  <link href="style.css" rel="stylesheet">
+  <meta name="author" content="Shapovalov">
+  <link href="../../resources/css/style.css" rel="stylesheet">
 </head>
 
 <body>

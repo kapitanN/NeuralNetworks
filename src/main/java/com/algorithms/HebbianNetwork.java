@@ -8,7 +8,7 @@ public class HebbianNetwork {
     public HebbianNetwork(){}
 
     private static final int NUMBER_OF_INPUTS = 25;
-    private static final int NUMBER_OF_OUTPUTS = 3;
+    private static final int NUMBER_OF_OUTPUTS = 2;
     private static final int NUMBER_OF_IMAGES = 4;
 
     private Neuron neurons[] = new Neuron[NUMBER_OF_IMAGES];
@@ -21,10 +21,10 @@ public class HebbianNetwork {
 
     //устанавливаем выходные значения нейронов для обучения
     private void setOutputs(){
-        neurons[0].outputs = new int[]{-1,1,1};
-        neurons[1].outputs = new int[]{1,-1,1};
-        neurons[2].outputs = new int[]{1,1,-1};
-        neurons[3].outputs = new int[]{1,-1,-1};
+        neurons[0].outputs = new int[]{-1,-1};
+        neurons[1].outputs = new int[]{-1,1};
+        neurons[2].outputs = new int[]{1,-1};
+        neurons[3].outputs = new int[]{1,1};
     }
 
     //устанавливаем входные значние нейронов
@@ -39,17 +39,14 @@ public class HebbianNetwork {
     }
 
     private int countOutput(int inputs[], int w[]){
-       int output;
         int count = 0;
         for (int i =0; i<inputs.length; i++){
-            count += inputs[i]*w[i]; //считаем значение нейрона на выходе
+            count += inputs[i]*w[i];
         }
-
         if (count > 0)
-            output = 1;
+            return 1;
         else
-            output = -1;
-        return output;
+            return -1;
     }
 
     private void training(){
@@ -58,13 +55,13 @@ public class HebbianNetwork {
         setOutputs();
         boolean flag;
         int iteration = 0;
-        for (;;){
+        do{
             flag = true;
             iteration++;
             System.out.println(iteration);
             for (int i = 0; i<NUMBER_OF_IMAGES; i++){
-                String trainingOutput = "" + neurons[i].outputs[0] + neurons[i].outputs[1] + neurons[i].outputs[2]; //записываем значение выходных нейронов для обучения
-                String realOutput = "" + countOutput(neurons[i].inputs, weights[0]) + countOutput(neurons[i].inputs, weights[1]) + countOutput(neurons[i].inputs, weights[2]); //получаем значения на выходах нейронов исходя из входных значений и весов связей
+                String trainingOutput = "" + neurons[i].outputs[0] + neurons[i].outputs[1]; //записываем значение выходных нейронов для обучения
+                String realOutput = "" + countOutput(neurons[i].inputs, weights[0]) + countOutput(neurons[i].inputs, weights[1]); //получаем значения на выходах нейронов исходя из входных значений и весов связей
                 System.out.println("training: " + trainingOutput + " real: " + realOutput);
                 //если ожидаемые значения выходных нейронов и действитеельные не совпадают, то корректируем веса связей
                 if (!trainingOutput.equals(realOutput)){
@@ -78,15 +75,13 @@ public class HebbianNetwork {
                     }
                 }
             }
-            if (flag){
-                break;
-            }
         }
+        while (!flag);
     }
 
     private String recognize(int inputs[]){
-        String outputResult = new String();
-        String patternsOutputResult = new String();
+        String outputResult = "";
+        String patternsOutputResult ;
         int numberOfResultImage = 0;
         int output[] = new int[NUMBER_OF_OUTPUTS];
         // считаем значения выходных нейронов исходя из входных значений
@@ -96,7 +91,7 @@ public class HebbianNetwork {
         }
         // сравниваем получаенные значния с обучающей выборкой и определяем поданное изображение
         for (int i = 0; i<NUMBER_OF_IMAGES; i++){
-            patternsOutputResult = "" + neurons[i].outputs[0] + neurons[i].outputs[1] + neurons[i].outputs[2];
+            patternsOutputResult = "" + neurons[i].outputs[0] + neurons[i].outputs[1];
             if (outputResult.equals(patternsOutputResult)){
                 System.out.println("result: " + outputResult);
                 System.out.println("pattern: " + patternsOutputResult);

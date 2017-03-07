@@ -12,7 +12,7 @@ public class HebbianNetwork {
     private static final int NUMBER_OF_IMAGES = 4;
 
     private Neuron neurons[] = new Neuron[NUMBER_OF_IMAGES];
-    private int weights[][] = new int[NUMBER_OF_OUTPUTS][NUMBER_OF_INPUTS];
+    public int weights[][] = new int[NUMBER_OF_OUTPUTS][NUMBER_OF_INPUTS];
 
     private class Neuron{
         int inputs[];
@@ -28,14 +28,21 @@ public class HebbianNetwork {
     }
 
     //устанавливаем входные значние нейронов
-    private void setInputs(){
-        for (int i = 0; i<NUMBER_OF_IMAGES; i++){
+    public void setInputs(int[][] inputArray){
+        for (int i = 0; i<inputArray.length; i++){
             neurons[i] = new Neuron();
         }
-        neurons[0].inputs = new int[]{1,-1,-1,-1,1,1,-1,-1,-1,1,1,1,1,1,1,1,-1,-1,-1,1,1,-1,-1,-1,1};//Н
-        neurons[1].inputs = new int[]{1,-1,-1,-1,1,1,-1,1,-1,1,1,-1,1,-1,1,1,-1,1,-1,1,1,1,1,1,1};//Ш
-        neurons[2].inputs = new int[]{1,1,1,1,1,1,-1,-1,-1,1,1,-1,-1,-1,-1,1,-1,-1,-1,1,1,1,1,1,1};//С
-        neurons[3].inputs = new int[]{1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,1};//Е
+        for (int i = 0; i<inputArray.length; i++){
+            neurons[i].inputs = inputArray[i];
+            System.out.println();
+            for (int j = 0; j < inputArray[i].length; j++) {
+                System.out.println(inputArray[i][j]);
+            }
+        }
+//        neurons[0].inputs = inputArray;//Н
+//        neurons[1].inputs = new int[]{1,-1,-1,-1,1,1,-1,1,-1,1,1,-1,1,-1,1,1,-1,1,-1,1,1,1,1,1,1};//Ш
+//        neurons[2].inputs = new int[]{1,1,1,1,1,1,-1,-1,-1,1,1,-1,-1,-1,-1,1,-1,-1,-1,1,1,1,1,1,1};//С
+//        neurons[3].inputs = new int[]{1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,1};//Е
     }
 
     private int countOutput(int inputs[], int w[]){
@@ -49,9 +56,9 @@ public class HebbianNetwork {
             return -1;
     }
 
-    private void training(){
+    public void training(int[][] inputArray){
         System.out.println("Start training");
-        setInputs();
+        setInputs(inputArray);
         setOutputs();
         boolean flag;
         int iteration = 0;
@@ -79,7 +86,7 @@ public class HebbianNetwork {
         while (!flag);
     }
 
-    private String recognize(int inputs[]){
+    public String recognize(int inputs[]){
         String outputResult = "";
         String patternsOutputResult ;
         int numberOfResultImage = 0;
@@ -101,11 +108,11 @@ public class HebbianNetwork {
         return "This is " + numberOfResultImage + " image.";
     }
 
-    public static void main(String args[]){
-        HebbianNetwork hebbianNetwork =  new HebbianNetwork();
-        hebbianNetwork.training();
-        int testInput1[] = new int[]{1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,1};//Е
-        String result1 = hebbianNetwork.recognize(testInput1);
-        System.out.println(result1);
-    }
+//    public static void main(String args[]){
+//        HebbianNetwork hebbianNetwork =  new HebbianNetwork();
+//        hebbianNetwork.training();
+//        int testInput1[] = new int[]{1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,1};//Е
+//        String result1 = hebbianNetwork.recognize(testInput1);
+//        System.out.println(result1);
+//    }
 }

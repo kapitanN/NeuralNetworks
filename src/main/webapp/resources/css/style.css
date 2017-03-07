@@ -5,27 +5,17 @@
 button {
     color: #fff;
     border: 2px solid transparent;
-    background: #911;
+    background: #130072;
     padding: 5px 30px;
-    -webkit-transition: 1s;
-       -moz-transition: 1s;
-        -ms-transition: 1s;
-         -o-transition: 1s;
-            transition: 1s;
 }
 button:hover {
-    color: #911;
-    border: 2px solid #911;
+    color: #130072;
+    border: 2px solid #130072;
     background: transparent;
-    -webkit-transition: 1s;
-       -moz-transition: 1s;
-        -ms-transition: 1s;
-         -o-transition: 1s;
-            transition: 1s;
 }
 select, option {
     padding: 5px;
-    border: 1px solid #911;
+    border: 1px solid #130072;
 }
 .ck-button {
     margin:4px;
@@ -34,20 +24,10 @@ select, option {
     border:1px solid #D0D0D0;
     overflow:auto;
     float:left;
-    -webkit-transition: 1s;
-       -moz-transition: 1s;
-        -ms-transition: 1s;
-         -o-transition: 1s;
-            transition: 1s;
 }
 
 .ck-button input:hover + div {
     background: #ccc;
-    -webkit-transition: 1s;
-       -moz-transition: 1s;
-        -ms-transition: 1s;
-         -o-transition: 1s;
-            transition: 1s;
 }
 
 .ck-button label {
@@ -68,13 +48,8 @@ select, option {
 }
 
 .ck-button input:checked + div {
-    background-color: #911;
+    background-color: #130072;
     color:#fff;
-    -webkit-transition: 1s;
-       -moz-transition: 1s;
-        -ms-transition: 1s;
-         -o-transition: 1s;
-            transition: 1s;
 }
 
 #description {

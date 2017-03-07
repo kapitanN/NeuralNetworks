@@ -8,13 +8,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class AjaxResponseBody {
 
     @JsonView(Views.Public.class)
-    int result;
+    String result;
 
-    public float getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(String result) {
         this.result = result;
     }
 

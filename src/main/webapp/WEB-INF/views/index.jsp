@@ -27,46 +27,23 @@
   <div id="second" class="ck-button"></div>
   <div id="third" class="ck-button"></div>
   <div id="four" class="ck-button"></div>
-  <button onclick="getValue(['first','second','third','four'])">Пересчитать</button>
+  <div id="recognize" class="ck-button"></div>
+  <%--<button onclick="getValue(['first','second','third','four'])">Пересчитать</button>--%>
+  <%--<button onclick="getValue(['recognize'])">Пересчитать</button>--%>
   <section id="description"></section>
 </div>
 <form id = "search-form">
-
   <div>
-    <%--<p id="result"></p>--%>
+    <p id="result"></p>
   </div>
-  <div class="form-group form-group-lg">
-    <label class="col-sm-2 control-label">Value</label>
-    <div class="col-sm-10">
-      <input type=text class="form-control" id="value">
-    </div>
-  </div>
-  <div class="form-group form-group-lg">
-    <label class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="email">
-    </div>
-  </div>
-  <div class="form-group form-group-lg">
-    <label class="col-sm-2 control-label">Result</label>
-    <div class="col-sm-10">
-      <p class="form-control" id="result"></p>
-    </div>
-  </div>
-
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" id="bth-search"
-              class="btn btn-primary btn-lg">Search</button>
+              class="btn btn-primary btn-lg">Recognize</button>
     </div>
   </div>
 </form>
 
-<form action="/training" method="post">
-  <input type="text" name="array"/>
-  <input type="submit" value="Test"/>
-  <div id="res">${res}</div>
-</form>
 <%--<form id = "submit_for_recognize">--%>
   <%--<button type="submit" id="recognize_button">Распознать</button>--%>
 <%--</form>--%>
@@ -76,23 +53,17 @@
     jQuery(document).ready(function($) {
 
         $("#search-form").submit(function(event) {
-
-            // Disble the search button
-            enableSearchButton(false);
-
             // Prevent the form from submitting via the browser.
             event.preventDefault();
-
             searchViaAjax();
-
         });
     });
 
     function searchViaAjax() {
 
         var search = {};
-        search["value"] = $("#value").val();
-        search["currency"] = "ad";
+        search["value"] = getValue(['first','second','third','four']);
+        search["recognize"] = getValue(['recognize']);
 
         $.ajax({
             type : "POST",
@@ -114,14 +85,9 @@
                 console.log("DONE");
                 display(data);
                 $("#result").text(JSON.stringify(data));
-                enableSearchButton(true);
             }
         });
 
-    }
-
-    function enableSearchButton(flag) {
-        $("#btn-search").prop("disabled", flag);
     }
 
     function display(data) {
@@ -133,7 +99,7 @@
     var desc = document.getElementById('description');
     var numberOfImages = 4;
     var numberOfInputs = 25;
-    var resultArray = [];
+
     // ___ Ф-я для создания инпутов в элементе с задаными размерами
     function createBlock(thisElement) {
         var n = 1;
@@ -148,11 +114,10 @@
     }
 
     function getValue(element) {
-
+        var resultArray = [];
         var elements = [];
-//        var resultArray = [];
         var count = 0;
-        for (var i = 0; i<numberOfImages; i++){
+        for (var i = 0; i<element.length; i++){
             elements[i] = document.getElementById(element[i]).getElementsByTagName('input');
             resultArray[i] = [];
             for (var j = 0; j<numberOfInputs; j++){
@@ -161,7 +126,7 @@
                 }
                 else resultArray[i][j] = -1;
             }
-            desc.innerHTML += resultArray[i]+ '<br>';
+//            desc.innerHTML += resultArray[i]+ '<br>';
         }
         return resultArray;
     };
@@ -180,7 +145,7 @@
         }
         // выводим при первом открытии
         eval(strStart);
-        desc.innerHTML = "Задается множество М: <br>";
+//        desc.innerHTML = "Задается множество М: <br>";
     })()
 </script>
 </html>

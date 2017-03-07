@@ -21,6 +21,7 @@
 
     <context:component-scan base-package="com" />
 
+    <bean class="com.algorithms.HebbianNetwork" name="hebbianNetwork"/>
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources
         in the /WEB-INF/views directory -->

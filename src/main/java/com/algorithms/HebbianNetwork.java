@@ -51,7 +51,7 @@ public class HebbianNetwork {
     }
 
     public void training(int[][] inputArray){
-        System.out.println("Start training");
+        System.out.println("\nStart training");
         setInputs(inputArray);
         setOutputs();
         boolean flag;

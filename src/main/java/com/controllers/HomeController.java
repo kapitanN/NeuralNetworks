@@ -48,9 +48,9 @@ public class HomeController {
     @RequestMapping(value = "/training")
     public AjaxResponseBody training(@RequestBody ConverterBean converterBean){
         LOGGER.info("training");
-        //HebbianNetwork hebbianNetwork = new HebbianNetwork();
         AjaxResponseBody responseBody = new AjaxResponseBody();
         int a[][] = converterBean.getValue();
+        hebbianNetwork.training(a);
         System.out.print("inputs");
         for (int i = 0; i<a.length; i++){
             System.out.println();
@@ -70,8 +70,6 @@ public class HomeController {
         catch (Exception e){
             LOGGER.info(e.toString());
         }
-        hebbianNetwork.training(a);
-
         responseBody.setResult("Обучение прошло успешно");
         return responseBody;
     }

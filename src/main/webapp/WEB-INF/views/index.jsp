@@ -63,7 +63,7 @@
         $("#search-form").submit(function(event) {
             // Prevent the form from submitting via the browser.
             event.preventDefault();
-            searchViaAjax();
+            trainingViaAjax();
         });
         $("#recognize-form").submit(function(event) {
             // Prevent the form from submitting via the browser.
@@ -72,7 +72,7 @@
         });
     });
 
-    function searchViaAjax() {
+    function trainingViaAjax() {
 
         var search = {};
         search["value"] = getValue(['first','second','third','four']);
@@ -86,7 +86,6 @@
             timeout : 100000,
             success : function(data) {
                 console.log("SUCCESS: ", data);
-                //display(data.result);
                 $("#result").text(data.result);
             },
             error : function(data) {
@@ -95,7 +94,6 @@
             },
             done : function(data) {
                 console.log("DONE");
-                //display(data);
                 $("#result").text(JSON.stringify(data));
             }
         });
@@ -116,7 +114,6 @@
             timeout : 100000,
             success : function(data) {
                 console.log("SUCCESS: ", data);
-                //display(data.result);
                 $("#result").text(data.result);
             },
             error : function(data) {
@@ -125,21 +122,13 @@
             },
             done : function(data) {
                 console.log("DONE");
-                //display(data);
                 $("#result").text(JSON.stringify(data));
             }
         });
 
     }
 
-//    function display(data) {
-//        var json = "<h4>Ajax Response</h4><pre>"
-//            + JSON.stringify(data, null, 4) + "</pre>";
-//        $('#feedback').html(json);
-//    }
-
     var desc = document.getElementById('description');
-    var numberOfImages = 4;
     var numberOfInputs = 25;
 
     // ___ Ф-я для создания инпутов в элементе с задаными размерами
@@ -158,7 +147,6 @@
     function getValue(element) {
         var resultArray = [];
         var elements = [];
-        var count = 0;
         for (var i = 0; i<element.length; i++){
             elements[i] = document.getElementById(element[i]).getElementsByTagName('input');
             resultArray[i] = [];
@@ -177,8 +165,7 @@
     (function() {
         // находим все изображения
         var image = document.getElementsByClassName('ck-button');
-        var strStart = "",
-            w1 = [], w2 = [], w3 = [], w4 = [];
+        var strStart = "";
         for (var i = 0; i < image.length; i++) {
             // получаем ид элемента
             var imageId = image[i].id;

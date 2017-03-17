@@ -33,16 +33,24 @@
   <section id="description"></section>
 </div>
 <form id = "search-form">
-  <div>
-    <p id="result"></p>
-  </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" id="bth-search"
+              class="btn btn-primary btn-lg">Training</button>
+    </div>
+  </div>
+</form>
+<form id = "recognize-form">
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" id="recognize-button"
               class="btn btn-primary btn-lg">Recognize</button>
     </div>
   </div>
 </form>
+<div>
+  <p id="result"></p>
+</div>
 
 <%--<form id = "submit_for_recognize">--%>
   <%--<button type="submit" id="recognize_button">Распознать</button>--%>
@@ -57,13 +65,17 @@
             event.preventDefault();
             searchViaAjax();
         });
+        $("#recognize-form").submit(function(event) {
+            // Prevent the form from submitting via the browser.
+            event.preventDefault();
+            recognizeViaAjax();
+        });
     });
 
     function searchViaAjax() {
 
         var search = {};
         search["value"] = getValue(['first','second','third','four']);
-        search["recognize"] = getValue(['recognize']);
 
         $.ajax({
             type : "POST",
@@ -74,7 +86,7 @@
             timeout : 100000,
             success : function(data) {
                 console.log("SUCCESS: ", data);
-                display(data.result);
+                //display(data.result);
                 $("#result").text(data.result);
             },
             error : function(data) {
@@ -83,18 +95,48 @@
             },
             done : function(data) {
                 console.log("DONE");
-                display(data);
+                //display(data);
                 $("#result").text(JSON.stringify(data));
             }
         });
 
     }
 
-    function display(data) {
-        var json = "<h4>Ajax Response</h4><pre>"
-            + JSON.stringify(data, null, 4) + "</pre>";
-        $('#feedback').html(json);
+    function recognizeViaAjax() {
+
+        var search = {};
+        search["recognize"] = getValue(['recognize']);
+
+        $.ajax({
+            type : "POST",
+            contentType : "application/json",
+            url : "/recognising",
+            data : JSON.stringify(search),
+            dataType : 'json',
+            timeout : 100000,
+            success : function(data) {
+                console.log("SUCCESS: ", data);
+                //display(data.result);
+                $("#result").text(data.result);
+            },
+            error : function(data) {
+                console.log("ERROR: ", data);
+                $("#result").text(JSON.stringify(data));
+            },
+            done : function(data) {
+                console.log("DONE");
+                //display(data);
+                $("#result").text(JSON.stringify(data));
+            }
+        });
+
     }
+
+//    function display(data) {
+//        var json = "<h4>Ajax Response</h4><pre>"
+//            + JSON.stringify(data, null, 4) + "</pre>";
+//        $('#feedback').html(json);
+//    }
 
     var desc = document.getElementById('description');
     var numberOfImages = 4;

@@ -31,13 +31,7 @@ public class HebbianNetwork {
     public void setInputs(int[][] inputArray){
         for (int i = 0; i<inputArray.length; i++){
             neurons[i] = new Neuron();
-        }
-        for (int i = 0; i<inputArray.length; i++){
             neurons[i].inputs = inputArray[i];
-            System.out.println();
-            for (int j = 0; j < inputArray[i].length; j++) {
-                System.out.println(inputArray[i][j]);
-            }
         }
 //        neurons[0].inputs = inputArray;//Н
 //        neurons[1].inputs = new int[]{1,-1,-1,-1,1,1,-1,1,-1,1,1,-1,1,-1,1,1,-1,1,-1,1,1,1,1,1,1};//Ш
